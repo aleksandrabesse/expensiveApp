@@ -11,56 +11,91 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: transactions.map(
-        (tx) {
-          return Card(
-            child: Row(
+    return transactions.isEmpty
+        ? Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+     
+            
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 15,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.green[400],
-                      width: 2,
-                    ),
-                  ),
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    '${tx.amount.toStringAsFixed(2)}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.green[400],
-                    ),
-                  ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Ни одной покупки'),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      tx.title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      DateFormat.yMMMd().format(tx.date),
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  height: 300,
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  child: Image.asset('assets/images/waiting.png',fit:BoxFit.cover),
                 ),
               ],
             ),
-          );
-        },
-      ).toList(),
-    );
+        )
+        : Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+              children: transactions.map(
+                (tx) {
+                  return Card(
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 15,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Theme.of(context).primaryColor,
+                              width: 2,
+                            ),
+                          ),
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            '${tx.amount.toStringAsFixed(2)}',
+                            style: TextStyle(
+                              fontFamily: Theme.of(context)
+                                  .primaryTextTheme
+                                  .body1
+                                  .fontFamily,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              tx.title,
+                              style: TextStyle(
+                                fontFamily: Theme.of(context)
+                                    .primaryTextTheme
+                                    .body1
+                                    .fontFamily,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              DateFormat.yMMMd().format(tx.date),
+                              style: TextStyle(
+                                fontFamily: Theme.of(context)
+                                    .primaryTextTheme
+                                    .body1
+                                    .fontFamily,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ).toList(),
+            ),
+        );
   }
 }
