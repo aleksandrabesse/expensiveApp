@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'widget/userTransaction.dart';
 
@@ -15,17 +14,21 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.orange[600],
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {},
+          ),
+        ],
         title: Text('Flutter App'),
       ),
-      body: 
-              Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: SafeArea(
+        child: ListView(
           children: <Widget>[
             Container(
               width: double.infinity,
@@ -35,10 +38,10 @@ class MyHomePage extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            UserTransaction()
+            UserTransaction(),
           ],
         ),
-      
+      ),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'listOfTransactions.dart';
+import './lst.dart';
 import 'addMenu.dart';
 import '../classes/transaction.dart';
 
@@ -12,6 +12,36 @@ class _UserTransactionState extends State<UserTransaction> {
 
   final List<Transaction> transactions = [
     Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+     Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+     Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+     Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+     Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+     Transaction(
       id: 't1',
       title: 'New Shoes',
       amount: 69.99,
@@ -37,7 +67,7 @@ class _UserTransactionState extends State<UserTransaction> {
     return Column(
       children: <Widget>[
           AddNewTransaction(adder: _addTx),
-          ListOfTransactions(transactions),
+          TransactionList(transactions),
       ],
     );
   }
