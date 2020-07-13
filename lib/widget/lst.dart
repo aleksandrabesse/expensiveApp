@@ -13,10 +13,8 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return transactions.isEmpty
         ? Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-     
-            
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -26,69 +24,78 @@ class TransactionList extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   height: 300,
                   margin: EdgeInsets.symmetric(vertical: 5),
-                  child: Image.asset('assets/images/waiting.png',fit:BoxFit.cover),
+                  child: Image.asset('assets/images/waiting.png',
+                      fit: BoxFit.cover),
                 ),
               ],
             ),
-        )
+          )
         : Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
               children: transactions.map(
                 (tx) {
                   return Card(
                     child: Row(
                       children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 15,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                              width: 2,
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal: 15,
                             ),
-                          ),
-                          padding: EdgeInsets.all(10),
-                          child: Text(
-                            '${tx.amount.toStringAsFixed(2)}',
-                            style: TextStyle(
-                              fontFamily: Theme.of(context)
-                                  .primaryTextTheme
-                                  .body1
-                                  .fontFamily,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Theme.of(context).primaryColor,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Theme.of(context).primaryColor,
+                                width: 2,
+                              ),
+                            ),
+                            padding: EdgeInsets.all(10),
+                            child: Text(
+                            
+                              '${tx.amount.toStringAsFixed(2)}',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: Theme.of(context)
+                                    .primaryTextTheme
+                                    .body1
+                                    .fontFamily,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Theme.of(context).primaryColor,
+                              ),
                             ),
                           ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              tx.title,
-                              style: TextStyle(
-                                fontFamily: Theme.of(context)
-                                    .primaryTextTheme
-                                    .body1
-                                    .fontFamily,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                tx.title,
+                                style: TextStyle(
+                                  fontFamily: Theme.of(context)
+                                      .primaryTextTheme
+                                      .body1
+                                      .fontFamily,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Text(
-                              DateFormat.yMMMd().format(tx.date),
-                              style: TextStyle(
-                                fontFamily: Theme.of(context)
-                                    .primaryTextTheme
-                                    .body1
-                                    .fontFamily,
-                                color: Colors.grey,
+                              Text(
+                                DateFormat.yMMMd().format(tx.date),
+                                style: TextStyle(
+                                  fontFamily: Theme.of(context)
+                                      .primaryTextTheme
+                                      .body1
+                                      .fontFamily,
+                                  color: Colors.grey,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -96,6 +103,6 @@ class TransactionList extends StatelessWidget {
                 },
               ).toList(),
             ),
-        );
+          );
   }
 }
