@@ -45,7 +45,7 @@ class AddNewTransaction extends StatelessWidget {
             ),
             FlatButton(
                 child: Text('Добавить'),
-                textColor: Colors.orange,
+                textColor: Colors.deepOrange[400],
                 onPressed: () {
                   submit();
                 }),
