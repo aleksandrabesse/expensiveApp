@@ -1,3 +1,5 @@
+import 'dart:math';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class AddNewTransaction extends StatefulWidget {
@@ -10,18 +12,35 @@ class AddNewTransaction extends StatefulWidget {
 }
 
 class _AddNewTransactionState extends State<AddNewTransaction> {
-  final titleController = TextEditingController();
+  final _titleController = TextEditingController();
 
-  final amountController = TextEditingController();
-
+  final _amountController = TextEditingController();
+  DateTime _picked;
   @override
   Widget build(BuildContext context) {
-    void submit() {
-      final String title = titleController.text;
-      final double value = double.parse(amountController.text);
+    void _submit() {
+      final String title = _titleController.text;
+      final double value = double.parse(_amountController.text);
 
-      if (title.isNotEmpty && value > 0) widget.adder(title: title, value: value);
+      if (title.isNotEmpty && value > 0 && _picked!=null)
+        widget.adder(title: title, value: value,data:_picked);
       Navigator.of(context).pop();
+    }
+
+    void _presentDate() {
+      showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2019),
+          lastDate: DateTime.now()).then((pickedDate) {
+            if (pickedDate==null)
+            return;
+            else 
+            setState(() {
+               _picked=pickedDate;
+            });
+           
+          });
     }
 
     ;
@@ -34,29 +53,53 @@ class _AddNewTransactionState extends State<AddNewTransaction> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             TextField(
-              decoration: InputDecoration(labelText: 'Наименование'),
-              controller: titleController,
+              decoration: InputDecoration(
+                labelText: 'Наименование',
+              ),
+              controller: _titleController,
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Цена'),
-              controller: amountController,
+              controller: _amountController,
               keyboardType: TextInputType.number,
               onSubmitted: (_) {
-               submit();
+                _submit();
               },
             ),
-            Container(
-              child: FlatButton(
-                child: Text('Дата'),
-                onPressed: () {},
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text(_picked==null?'Не выбрана дата': DateFormat.yMMM().format(_picked),
+                      style: Theme.of(context).primaryTextTheme.subtitle1),
+                  FlatButton(
+                    textColor: Theme.of(context).primaryColor,
+                    child: Text(
+                      'Дата',
+                      style: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    onPressed: () {
+                      _presentDate();
+                    },
+                  ),
+                ],
               ),
             ),
-            FlatButton(
-                child: Text('Добавить'),
-                textColor: Theme.of(context).primaryColorDark,
+            Center(
+              child: RaisedButton(
+                child: Text('Добавить',
+                    style: Theme.of(context).primaryTextTheme.subtitle1),
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
                 onPressed: () {
-                  submit();
-                }),
+                  _submit();
+                },
+              ),
+            ),
           ],
         ),
       ),

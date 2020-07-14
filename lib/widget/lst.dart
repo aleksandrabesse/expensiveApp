@@ -36,22 +36,28 @@ class TransactionList extends StatelessWidget {
               children: transactions.map(
                 (tx) {
                   return Container(
-                    margin: EdgeInsets.symmetric(vertical:2.0,horizontal: 5.0),
+                    margin:
+                        EdgeInsets.symmetric(vertical: 2.0, horizontal: 5.0),
                     child: Card(
+                      elevation: 2,
                       child: ListTile(
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete),
+                        ),
                         leading: CircleAvatar(
                           radius: 35,
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: FittedBox(
-                                child: Text(tx.amount.toString(),
+                                child: Text(tx.amount.toStringAsFixed(2),
                                     style: Theme.of(context)
                                         .primaryTextTheme
                                         .bodyText2)),
                           ),
                         ),
                         title: Text(tx.title,
-                            style: Theme.of(context).primaryTextTheme.bodyText1),
+                            style:
+                                Theme.of(context).primaryTextTheme.bodyText1),
                         subtitle: Text(
                           DateFormat.yMMMd().format(tx.date),
                         ),

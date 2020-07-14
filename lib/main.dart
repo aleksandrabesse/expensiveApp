@@ -1,5 +1,6 @@
 import 'package:expensiveApp/widget/addMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import './classes/transaction.dart';
 import './widget/lst.dart';
 import './widget/chart.dart';
@@ -88,13 +89,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _addTx({double value, String title}) {
+  void _addTx({double value, String title, DateTime data}) {
     setState(() {
       _transactions.add(Transaction(
           id: DateTime.now().toString(),
           amount: value,
           title: title,
-          date: DateTime.now()));
+          date: data));
     });
   }
 
