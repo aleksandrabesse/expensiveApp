@@ -16,8 +16,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.orange,
         accentColor: Colors.greenAccent,
         primaryTextTheme: TextTheme(
-          body1: TextStyle(fontFamily: 'Prata', fontSize: 18),
+          bodyText1: TextStyle(fontFamily: 'Prata', fontSize: 18),
+          bodyText2: TextStyle(fontFamily: 'Prata', fontSize: 14),
+          subtitle1: TextStyle(fontFamily: 'OpenSans', fontSize: 14),
         ),
+        
         appBarTheme: AppBarTheme(
           textTheme: TextTheme(
             body1: TextStyle(fontSize: 20, fontFamily: 'OpenSans'),

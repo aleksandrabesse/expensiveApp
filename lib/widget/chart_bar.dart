@@ -12,7 +12,7 @@ class ChartBar extends StatelessWidget {
     return Column(
       children: <Widget>[
         FittedBox(
-          child: Text('\$${spendingAmount.toStringAsFixed(0)}'),
+          child: Text('${spendingAmount.toStringAsFixed(0)}',style: Theme.of(context).primaryTextTheme.bodyText2),
         ),
         // SizedBox(
         //   height: 4,
@@ -44,7 +44,7 @@ class ChartBar extends StatelessWidget {
         // SizedBox(
         //   height: 4,
         // ),
-        Text(label),
+        Text(label,style: Theme.of(context).primaryTextTheme.bodyText2),
       ],
     );
   }
