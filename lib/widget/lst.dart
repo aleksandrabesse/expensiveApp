@@ -6,8 +6,8 @@ import '../classes/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
-
-  TransactionList(this.transactions);
+  final Function deleteFnc;
+  TransactionList(this.transactions,this.deleteFnc);
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +15,7 @@ class TransactionList extends StatelessWidget {
         ? Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -43,6 +44,7 @@ class TransactionList extends StatelessWidget {
                       child: ListTile(
                         trailing: IconButton(
                           icon: Icon(Icons.delete),
+                          onPressed: () {deleteFnc(tx.id);},
                         ),
                         leading: CircleAvatar(
                           radius: 35,

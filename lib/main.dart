@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(fontFamily: 'Prata', fontSize: 14),
           subtitle1: TextStyle(fontFamily: 'OpenSans', fontSize: 14),
         ),
-        
         appBarTheme: AppBarTheme(
           textTheme: TextTheme(
             body1: TextStyle(fontSize: 20, fontFamily: 'OpenSans'),
@@ -99,6 +98,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _deleteTr(String id) {
+    setState(() {
+      _transactions.removeWhere((tx) => tx.id == id);
+    });
+  }
+
   void _modalSheet(BuildContext ctx) {
     showModalBottomSheet(
         context: context,
@@ -148,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           children: <Widget>[
             Chart(getTransaction7days),
-            TransactionList(_transactions),
+            TransactionList(_transactions, _deleteTr),
           ],
         ),
       ),
