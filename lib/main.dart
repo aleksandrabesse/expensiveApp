@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:expensiveApp/widget/addMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -87,6 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool _valueForSwitch = false;
+    final sizeMedia = MediaQuery.of(context);
     final appBar = AppBar(
       textTheme: Theme.of(context).appBarTheme.textTheme,
       actions: <Widget>[
@@ -105,7 +109,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
       title: Text('Трекер расходов'),
     );
-    double avaliableHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - appBar.preferredSize.height;
+    double avaliableHeight = sizeMedia.size.height -
+        sizeMedia.padding.top -
+        appBar.preferredSize.height;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
@@ -118,10 +124,29 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            Container(
-              height: avaliableHeight * 0.25,
-              child: Chart(getTransaction7days),
-            ),
+            //TO DO 
+            (_valueForSwitch)
+                ? Container(
+                    height: avaliableHeight * 0.25,
+                    child: Chart(getTransaction7days),
+                  )
+                : (sizeMedia.orientation == Orientation.landscape)
+                    ? Row(
+                        children: <Widget>[
+                          Text('Показать диаграммы'),
+                          Switch(
+                              value: _valueForSwitch,
+                              onChanged: (valueS) {
+                                setState(() {
+                                  _valueForSwitch = valueS;
+                                });
+                              }),
+                        ],
+                      )
+                    : Container(
+                        height: avaliableHeight * 0.25,
+                        child: Chart(getTransaction7days),
+                      ),
             Container(
               height: avaliableHeight * 0.75,
               child: TransactionList(_transactions, _deleteTr),
