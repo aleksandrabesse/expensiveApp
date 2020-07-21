@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
@@ -43,7 +45,9 @@ class TransactionList extends StatelessWidget {
                       elevation: 2,
                       child: ListTile(
                         trailing: IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: Icon(Platform.isIOS
+                              ? CupertinoIcons.delete
+                              : Icons.delete),
                           onPressed: () {
                             deleteFnc(tx.id);
                           },
@@ -54,14 +58,14 @@ class TransactionList extends StatelessWidget {
                             padding: const EdgeInsets.all(4.0),
                             child: FittedBox(
                                 child: Text(tx.amount.toStringAsFixed(2),
-                                    style: Theme.of(context)
+                                    style: Platform.isIOS? CupertinoTheme.of(context).textTheme:Theme.of(context)
                                         .primaryTextTheme
                                         .bodyText2)),
                           ),
                         ),
                         title: Text(tx.title,
                             style:
-                                Theme.of(context).primaryTextTheme.bodyText1),
+                                Platform.isIOS? CupertinoTheme.of(context).textTheme:Theme.of(context).primaryTextTheme.bodyText1),
                         subtitle: Text(
                           DateFormat.yMMMd().format(tx.date),
                         ),
