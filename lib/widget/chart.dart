@@ -9,7 +9,7 @@ import './chart_bar.dart';
 class Chart extends StatelessWidget {
   final List<Transaction> tr;
   Chart(this.tr);
-  List<String> daysOfWeek=['П','B','С','Ч','П','С','В'];
+  List<String> daysOfWeek = ['П', 'B', 'С', 'Ч', 'П', 'С', 'В'];
   List<Map<String, Object>> get sumValues {
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(Duration(days: index));
@@ -22,7 +22,8 @@ class Chart extends StatelessWidget {
       }
 
       return {
-        "day": daysOfWeek[weekDay.weekday-1],//DateFormat.E().format(weekDay).substring(0, 1),
+        "day": daysOfWeek[weekDay.weekday -
+            1], //DateFormat.E().format(weekDay).substring(0, 1),
         "value": totalSum
       };
     }).reversed.toList();
@@ -36,19 +37,18 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
         child: Padding(
           padding: EdgeInsets.all(5),
-                child: Row(
+          child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: sumValues.map((i) {
                 return Flexible(
                   fit: FlexFit.tight,
-                              child: ChartBar(
-                     i['day'], i['value'],  sumList==0.0?0.0:(i['value'] as double) / sumList),
+                  child: ChartBar(i['day'], i['value'],
+                      sumList == 0.0 ? 0.0 : (i['value'] as double) / sumList),
                 );
               }).toList()),
         ),
