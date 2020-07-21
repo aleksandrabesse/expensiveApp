@@ -43,46 +43,10 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'New Shoes',
       amount: 69.99,
       date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Weekly Groceries',
-      amount: 16.53,
-      date: DateTime.now(),
-    ),
+    )
   ];
 
-  void madeEmpty() {
+  void _madeEmpty() {
     setState(() {
       _transactions.clear();
     });
@@ -123,6 +87,25 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      textTheme: Theme.of(context).appBarTheme.textTheme,
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () {
+            _modalSheet(context);
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: () {
+            _madeEmpty();
+          },
+        ),
+      ],
+      title: Text('Трекер расходов'),
+    );
+
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
@@ -131,26 +114,9 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         child: Icon(Icons.add),
       ),
-      appBar: AppBar(
-        textTheme: Theme.of(context).appBarTheme.textTheme,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              _modalSheet(context);
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.clear),
-            onPressed: () {
-              madeEmpty();
-            },
-          ),
-        ],
-        title: Text('Expensive App'),
-      ),
+      appBar: appBar,
       body: SafeArea(
-        child: ListView(
+        child: Column(
           children: <Widget>[
             Chart(getTransaction7days),
             TransactionList(_transactions, _deleteTr),
