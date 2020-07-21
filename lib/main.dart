@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
       title: Text('Трекер расходов'),
     );
-
+    double avaliableHeight = MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top - appBar.preferredSize.height;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
@@ -118,8 +118,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            Chart(getTransaction7days),
-            TransactionList(_transactions, _deleteTr),
+            Container(
+              height: avaliableHeight * 0.3,
+              child: Chart(getTransaction7days),
+            ),
+            Container(
+              height: avaliableHeight * 0.7,
+              child: TransactionList(_transactions, _deleteTr),
+            ),
           ],
         ),
       ),
