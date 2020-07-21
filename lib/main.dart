@@ -39,6 +39,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _valueForSwitch = false;
+
   List<Transaction> _transactions = [
     Transaction(
       id: 't1',
@@ -77,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
           return GestureDetector(
               onTap: () {},
               behavior: HitTestBehavior.opaque,
-              child: AddNewTransaction(adder: _addTx));
+              child: AddNewTransaction(adder: _addTx, ctx: context));
         });
   }
 
@@ -89,7 +91,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool _valueForSwitch = false;
     final sizeMedia = MediaQuery.of(context);
     final appBar = AppBar(
       textTheme: Theme.of(context).appBarTheme.textTheme,
@@ -124,31 +125,43 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            //TO DO 
-            (_valueForSwitch)
+            if (_valueForSwitch)
+              Container(
+                height: (_valueForSwitch)
+                    ? avaliableHeight * 0.15
+                    : avaliableHeight * 0.25,
+                child: Chart(getTransaction7days),
+              ),
+            (sizeMedia.orientation == Orientation.landscape)
                 ? Container(
-                    height: avaliableHeight * 0.25,
-                    child: Chart(getTransaction7days),
+                    margin: const EdgeInsets.all(4.0),
+                    height: avaliableHeight * 0.1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Показать диаграммы',
+                            style:
+                                Theme.of(context).primaryTextTheme.subtitle1),
+                        Switch.adaptive(
+                            value: _valueForSwitch,
+                            onChanged: (value) {
+                              setState(() {
+                                _valueForSwitch = value;
+                              });
+                            })
+                      ],
+                    ),
                   )
-                : (sizeMedia.orientation == Orientation.landscape)
-                    ? Row(
-                        children: <Widget>[
-                          Text('Показать диаграммы'),
-                          Switch(
-                              value: _valueForSwitch,
-                              onChanged: (valueS) {
-                                setState(() {
-                                  _valueForSwitch = valueS;
-                                });
-                              }),
-                        ],
-                      )
-                    : Container(
-                        height: avaliableHeight * 0.25,
-                        child: Chart(getTransaction7days),
-                      ),
+                : Container(
+                    height: (_valueForSwitch)
+                        ? avaliableHeight * 0.15
+                        : avaliableHeight * 0.25,
+                    child: Chart(getTransaction7days),
+                  ),
             Container(
-              height: avaliableHeight * 0.75,
+              height: (_valueForSwitch)
+                  ? avaliableHeight * 0.65
+                  : avaliableHeight * 0.75,
               child: TransactionList(_transactions, _deleteTr),
             ),
           ],
